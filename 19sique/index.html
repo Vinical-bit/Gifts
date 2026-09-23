@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PR de aniversário — Arthur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<main class="app">
+
+  <!-- ABERTURA -->
+  <section class="screen on" id="s-start" aria-labelledby="t-start">
+    <svg class="start-plate" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="58" fill="var(--red)"/>
+      <circle cx="60" cy="60" r="44" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+      <circle cx="60" cy="60" r="9" fill="var(--bg)"/>
+      <text x="60" y="38" text-anchor="middle" font-family="Big Shoulders Display, Impact, sans-serif" font-weight="900" font-size="18" fill="#fff">19</text>
+    </svg>
+    <h1 class="title" id="t-start">Arthur, bate<br>o PR dos 19</h1>
+    <p class="lede">Três séries no supino. Cada uma é um ano. Aperte rápido pra subir a barra antes do tempo acabar.</p>
+    <div class="code" aria-label="trecho de código decorativo">while (arthur.idade &lt; 19) {
+  treina();
+  commit("tipo assim, mais um ano");
+}</div>
+    <button class="btn" id="btnStart">Deitar no banco</button>
+  </section>
+
+  <!-- JOGO -->
+  <section class="screen" id="s-game" aria-label="Minigame de supino">
+    <div class="hud">
+      <span id="setLabel">Série 1 de 3</span>
+      <span><small>carga</small> <span id="loadLabel">17</span></span>
+    </div>
+    <div class="timer" aria-hidden="true"><div id="timerBar"></div></div>
+
+    <div class="stage">
+      <svg viewBox="0 0 320 220" role="img" aria-label="Pessoa deitada no banco empurrando a barra">
+        <!-- chão -->
+        <line x1="0" y1="204" x2="320" y2="204" stroke="var(--line)" stroke-width="2"/>
+        <!-- rack -->
+        <line x1="178" y1="204" x2="178" y2="56" stroke="var(--steel)" stroke-width="5" stroke-linecap="round"/>
+        <path d="M178 74 h10 v-8" fill="none" stroke="var(--steel)" stroke-width="4" stroke-linecap="round"/>
+        <!-- banco -->
+        <rect x="70" y="160" width="170" height="12" rx="4" fill="var(--ink)"/>
+        <line x1="95" y1="172" x2="95" y2="204" stroke="var(--ink)" stroke-width="5"/>
+        <line x1="215" y1="172" x2="215" y2="204" stroke="var(--ink)" stroke-width="5"/>
+        <!-- corpo -->
+        <circle cx="96" cy="148" r="12" fill="var(--ink)"/>
+        <rect x="108" y="142" width="110" height="18" rx="9" fill="var(--ink)"/>
+        <path d="M214 151 L252 151 L256 202" fill="none" stroke="var(--ink)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- braço -->
+        <polyline id="arm" points="150,146 170,130 158,128" fill="none" stroke="var(--ink)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- barra + anilha -->
+        <g id="plate">
+          <circle cx="0" cy="0" r="30" fill="var(--red)"/>
+          <circle cx="0" cy="0" r="22" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
+          <circle cx="0" cy="0" r="4.5" fill="var(--steel)"/>
+          <text id="plateText" x="0" y="-11" text-anchor="middle" font-family="Big Shoulders Display, Impact, sans-serif" font-weight="900" font-size="13" fill="#fff">17</text>
+        </g>
+      </svg>
+      <div class="meter" aria-hidden="true"><div id="meterFill"></div></div>
+
+      <div class="overlay" id="ovFail" role="dialog" aria-labelledby="failTitle">
+        <h2 id="failTitle">A barra desceu</h2>
+        <p id="failText"></p>
+        <button class="btn" id="btnRetry">Tentar a série de novo</button>
+      </div>
+      <div class="overlay" id="ovSet" role="dialog" aria-labelledby="setTitle">
+        <h2 id="setTitle">Série concluída</h2>
+        <p id="setText"></p>
+        <button class="btn" id="btnNext">Colocar mais peso</button>
+      </div>
+    </div>
+
+    <div class="spotter" aria-live="polite"><b>Spotter:</b><span id="spotterLine">tipo assim, quando quiser.</span></div>
+    <button class="push" id="btnPush" aria-label="Empurrar a barra">Empurra</button>
+    <div class="hint">No computador, a barra de espaço também empurra.</div>
+  </section>
+
+  <!-- FINAL -->
+  <section class="screen" id="s-end" aria-labelledby="t-end">
+    <p class="pr-number" aria-hidden="true">19</p>
+    <h2 class="pr-label" id="t-end">Novo PR, Arthur</h2>
+    <div class="letter">
+      <p>Tipo assim... 19 anos.</p>
+      <p>Mais um ano de carga subindo, de código compilando (às vezes na terceira tentativa) e de uma amizade que não precisa de spotter pra ficar de pé.</p>
+      <p>Que esse ano venha com PR no supino, deploy sem erro e muito motivo pra começar frase com "tipo assim" antes de coisa boa.</p>
+      <p>Feliz aniversário, mano.</p>
+      <p class="sign">— seu parceiro de treino e de código //Vinical</p>
+    </div>
+    <button class="btn" id="btnAgain">Treinar de novo</button>
+    <p class="egg">// de 2024: tipo assim, essa piada nunca vou esquecer.</p>
+  </section>
+
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
