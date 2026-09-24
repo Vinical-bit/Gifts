@@ -1,0 +1,95 @@
+:root{
+  --bg:#EAF1FB;
+  --panel:#FFFFFF;
+  --ink:#16233F;
+  --ink-soft:#56627D;
+  --flame:#FF6A2B;
+  --plastic:rgba(22,35,63,.08);
+  --track:#D3DDEC;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#101A2E;--panel:#1A2742;--ink:#EEF3FC;--ink-soft:#A3B0C9;
+    --plastic:rgba(238,243,252,.08);--track:#2A3957;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101A2E;--panel:#1A2742;--ink:#EEF3FC;--ink-soft:#A3B0C9;
+  --plastic:rgba(238,243,252,.08);--track:#2A3957;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0;height:100%;font-family:"Archivo",system-ui,sans-serif;color:var(--ink);
+  background:var(--bg);overflow:hidden;-webkit-tap-highlight-color:transparent;
+}
+main{
+  height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:clamp(10px,2.4vh,22px);padding:20px;text-align:center;
+}
+h1{
+  font-family:"Anton",Impact,sans-serif;font-weight:400;margin:0;line-height:.95;
+  font-size:clamp(2.2rem,9vw,3.6rem);letter-spacing:.01em;
+}
+.status{margin:0;min-height:1.5em;font-size:1.1rem;font-weight:600;color:var(--ink-soft)}
+
+.shaker-zone{position:relative;width:min(58vw,230px);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.shaker-zone:active{cursor:grabbing}
+.shaker-zone:focus-visible{outline:3px dashed var(--flame);outline-offset:10px;border-radius:24px}
+.shaker{will-change:transform;transform-origin:50% 80%}
+.shaker svg{width:100%;height:auto;display:block;overflow:visible}
+.jiggle{animation:jig .12s linear}
+@keyframes jig{25%{transform:rotate(-7deg) translateX(-6px)}75%{transform:rotate(7deg) translateX(6px)}}
+
+#lid{transform-box:fill-box;transform-origin:center;transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.open #lid{transform:translate(38px,-46px) rotate(24deg)}
+.steam{opacity:0}
+.open .steam{opacity:1}
+.steam path{stroke:var(--ink-soft);stroke-width:5;fill:none;stroke-linecap:round;opacity:0}
+.open .steam path{animation:rise 2.2s ease-out infinite}
+.open .steam path:nth-child(2){animation-delay:.6s}
+.open .steam path:nth-child(3){animation-delay:1.2s}
+@keyframes rise{0%{opacity:0;transform:translateY(10px)}30%{opacity:.7}100%{opacity:0;transform:translateY(-40px)}}
+
+.meter{width:min(78vw,300px)}
+.bar{height:14px;border-radius:999px;background:var(--track);overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#FFB38A,var(--flame));border-radius:999px;transition:width .12s linear}
+.meter small{display:block;margin-top:6px;color:var(--ink-soft);font-size:.85rem}
+
+.motion-btn{
+  font:inherit;font-weight:600;font-size:.95rem;color:var(--ink);background:var(--panel);
+  border:2px solid var(--ink);border-radius:999px;padding:9px 18px;cursor:pointer;display:none;
+}
+.motion-btn:focus-visible,.again:focus-visible{outline:3px solid var(--flame);outline-offset:3px}
+
+.reveal{
+  position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px;gap:18px;pointer-events:none;z-index:3;
+}
+.tease{
+  font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:clamp(1.9rem,8vw,3rem);
+  line-height:1.05;max-width:14ch;margin:0;background:var(--panel);padding:18px 22px;border-radius:20px;
+  box-shadow:0 18px 40px rgba(22,35,63,.2);
+  opacity:0;transform:scale(.6) rotate(-4deg);transition:opacity .3s, transform .5s cubic-bezier(.3,1.7,.5,1);
+}
+.tease.show{opacity:1;transform:rotate(-2deg)}
+.note{
+  background:var(--panel);border-radius:22px;padding:24px 24px 20px;max-width:360px;
+  box-shadow:0 18px 40px rgba(22,35,63,.2);text-align:center;
+  opacity:0;transform:translateY(20px);transition:opacity .4s, transform .5s ease;
+}
+.note.show{opacity:1;transform:none;pointer-events:auto}
+.note .from{margin:0 0 8px;color:var(--ink-soft);font-size:.9rem}
+.note p.msg{margin:0 0 6px;font-size:1.2rem;font-weight:600;line-height:1.4}
+.note .sign{margin:0 0 18px;color:var(--ink-soft)}
+.again{font:inherit;font-weight:800;color:#fff;background:var(--flame);border:0;border-radius:999px;padding:12px 24px;cursor:pointer}
+.hidden-main{opacity:.15;transition:opacity .5s}
+
+@media (prefers-reduced-motion: reduce){
+  .jiggle,.open .steam path{animation:none}
+  .open .steam path{opacity:.5}
+  #lid,.tease,.note{transition:opacity .2s}
+}
