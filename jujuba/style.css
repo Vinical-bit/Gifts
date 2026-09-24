@@ -1,0 +1,116 @@
+:root{
+  --bg-top:#FFF4E6;
+  --bg-bottom:#FFDCE6;
+  --sun:#FFD27A;
+  --bean:#F7A8C4;
+  --bean-deep:#E57FA5;
+  --ink:#5A2A3C;
+  --ink-soft:#8C5A6C;
+  --card:#FFFFFF;
+  --bubble:#FFFFFF;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg-top:#3A2030;
+    --bg-bottom:#24131D;
+    --sun:#C9954A;
+    --ink:#FFE3EC;
+    --ink-soft:#D9A9BA;
+    --card:#43263A;
+    --bubble:#4D2C42;
+  }
+}
+:root[data-theme="dark"]{
+  --bg-top:#3A2030;--bg-bottom:#24131D;--sun:#C9954A;
+  --ink:#FFE3EC;--ink-soft:#D9A9BA;--card:#43263A;--bubble:#4D2C42;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0;height:100%;min-height:100%;
+  font-family:"Fredoka",system-ui,sans-serif;color:var(--ink);
+  background:
+    radial-gradient(circle at 50% -10%, var(--sun) 0, transparent 45%),
+    linear-gradient(180deg,var(--bg-top),var(--bg-bottom));
+  background-color:var(--bg-bottom);
+  overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+main{
+  height:100%;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:clamp(12px,3vh,28px);padding:20px;text-align:center;
+}
+h1{
+  font-family:"Chewy","Fredoka",cursive;font-weight:400;
+  font-size:clamp(2.4rem,9vw,4rem);line-height:1;margin:0;letter-spacing:.01em;
+}
+.hint{margin:0;color:var(--ink-soft);font-size:1.05rem;min-height:1.4em}
+
+.stage{position:relative;width:min(84vw,380px);display:flex;flex-direction:column;align-items:center}
+.bubble{
+  position:relative;min-height:84px;max-width:100%;
+  display:flex;align-items:center;justify-content:center;
+  padding:14px 22px;margin-bottom:14px;border-radius:22px;
+  background:var(--bubble);box-shadow:0 8px 24px rgba(229,127,165,.25);
+  font-size:clamp(1.15rem,4.6vw,1.45rem);font-weight:500;line-height:1.3;
+  opacity:0;transform:translateY(8px) scale(.9);
+  transition:opacity .25s ease, transform .35s cubic-bezier(.3,1.6,.5,1);
+}
+.bubble::after{
+  content:"";position:absolute;bottom:-9px;left:50%;margin-left:-10px;
+  border:10px solid transparent;border-top-color:var(--bubble);border-bottom:0;
+}
+.bubble.show{opacity:1;transform:none}
+.bubble .emoji{font-size:2.6rem;line-height:1}
+.bubble svg.flag{width:64px;height:43px;border-radius:6px;display:block}
+
+.bean-btn{
+  border:0;background:none;padding:0;cursor:pointer;width:100%;
+  touch-action:manipulation;user-select:none;-webkit-user-select:none;
+  border-radius:40%;
+}
+.bean-btn:focus-visible{outline:3px dashed var(--bean-deep);outline-offset:8px}
+.bean-wrap{transform-origin:50% 92%;will-change:transform}
+.bean-wrap svg{width:100%;height:auto;display:block;overflow:visible}
+.idle{animation:bob 3.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.gone{transition:transform .35s ease-in, opacity .3s ease-in;transform:scale(1.5)!important;opacity:0}
+
+.progress{display:flex;gap:8px;justify-content:center;margin-top:6px}
+.progress span{
+  width:18px;height:12px;border-radius:50% 55% 50% 45%/60% 55% 45% 40%;
+  background:transparent;border:2px solid var(--bean-deep);opacity:.5;
+  transition:background .2s, opacity .2s, transform .3s cubic-bezier(.3,1.8,.5,1);
+}
+.progress span.on{background:var(--bean);opacity:1;transform:scale(1.15)}
+
+.final{
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  padding:24px;pointer-events:none;opacity:0;transition:opacity .5s ease;z-index:3;
+}
+.final.show{opacity:1;pointer-events:auto}
+.card{
+  background:var(--card);border-radius:28px;padding:34px 28px 26px;max-width:380px;
+  box-shadow:0 20px 50px rgba(229,127,165,.35);text-align:center;
+  transform:scale(.85);transition:transform .6s cubic-bezier(.3,1.5,.5,1);
+}
+.final.show .card{transform:none}
+.card h2{
+  font-family:"Chewy","Fredoka",cursive;font-weight:400;
+  font-size:clamp(2rem,8vw,2.6rem);line-height:1.1;margin:0 0 12px;
+}
+.card p{margin:0 0 22px;color:var(--ink-soft);font-size:1.05rem}
+.again{
+  font:inherit;font-weight:600;color:#fff;background:var(--bean-deep);
+  border:0;border-radius:999px;padding:12px 24px;cursor:pointer;
+}
+.again:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+
+@media (prefers-reduced-motion: reduce){
+  .idle{animation:none}
+  .bubble,.card{transition:opacity .2s ease}
+}

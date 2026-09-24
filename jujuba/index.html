@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Para a Jujuba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chewy&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<main>
+  <h1>Para a Jujuba</h1>
+  <p class="hint" id="hint">aperta a jujuba</p>
+
+  <div class="stage">
+    <div class="bubble" id="bubble" aria-live="polite"></div>
+
+    <button class="bean-btn" id="bean" aria-label="Apertar a jujuba">
+      <div class="bean-wrap idle" id="wrap">
+        <svg viewBox="0 0 300 200" aria-hidden="true">
+          <defs>
+            <radialGradient id="g" cx="38%" cy="32%" r="75%">
+              <stop offset="0" stop-color="#FFD3E2"/>
+              <stop offset=".55" stop-color="#F7A8C4"/>
+              <stop offset="1" stop-color="#E57FA5"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="150" cy="186" rx="105" ry="10" fill="#E57FA5" opacity=".25"/>
+          <path d="M62,48 C110,8 168,44 212,32 C272,16 302,74 282,124 C262,176 192,186 142,172 C92,160 42,182 22,132 C6,92 22,64 62,48 Z" fill="url(#g)"/>
+          <!-- açúcar -->
+          <g fill="#fff" opacity=".7">
+            <circle cx="90" cy="70" r="2.2"/><circle cx="220" cy="60" r="1.8"/>
+            <circle cx="250" cy="120" r="2"/><circle cx="60" cy="125" r="1.6"/>
+            <circle cx="175" cy="150" r="2"/><circle cx="120" cy="150" r="1.5"/>
+          </g>
+          <ellipse cx="95" cy="62" rx="34" ry="12" fill="#fff" opacity=".55" transform="rotate(-18 95 62)"/>
+          <!-- rosto -->
+          <g id="eyesOpen" fill="#5A2A3C">
+            <ellipse cx="128" cy="100" rx="7" ry="9"/>
+            <ellipse cx="184" cy="96" rx="7" ry="9"/>
+            <circle cx="130" cy="96" r="2.4" fill="#fff"/>
+            <circle cx="186" cy="92" r="2.4" fill="#fff"/>
+          </g>
+          <g id="eyesSquish" stroke="#5A2A3C" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+            <path d="M120,94 L132,101 L120,108"/>
+            <path d="M192,90 L180,97 L192,104"/>
+          </g>
+          <ellipse cx="112" cy="120" rx="12" ry="6" fill="#E0648F" opacity=".45"/>
+          <ellipse cx="202" cy="115" rx="12" ry="6" fill="#E0648F" opacity=".45"/>
+          <path id="mouth" d="M148,116 Q156,126 164,115" stroke="#5A2A3C" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </button>
+
+    <div class="progress" id="progress" aria-hidden="true"></div>
+  </div>
+</main>
+
+<div class="final" id="final" role="dialog" aria-labelledby="finalTitle">
+  <div class="card">
+    <h2 id="finalTitle">Da São Paulo con amore, Jujuba 😘</h2>
+    <p>(apertou tanto que agora me deve uma visita)</p>
+    <button class="again" id="again">Apertar de novo</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
