@@ -1,0 +1,182 @@
+/* Layout: uma rolagem contínua que é o próprio caminho da pedalada —
+   rua (foto) → caverna de cristais (museu) → mar → chegada. Mundo único, escuro. */
+:root{
+  --night:#0E0C14;
+  --cave:#120E1C;
+  --sea:#06202C;
+  --ink:#F2EDF7;
+  --muted:#B3AAC4;
+  --amethyst:#9B6BD6;
+  --amethyst-hi:#C9A2FF;
+  --panel:rgba(22,17,34,.78);
+  --line:rgba(201,162,255,.22);
+  --display:"Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --body:"Manrope", "Segoe UI", system-ui, sans-serif;
+  --label:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --gutter-l:max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--night);color:var(--ink);
+  font-family:var(--body);font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom, 0px));
+}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.05;margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.wrap.narrow{max-width:640px}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:min(86svh,820px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:-2}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(14,12,20,.05) 30%,rgba(14,12,20,.65) 70%,var(--night) 100%)}
+.hero-text{width:100%;padding-block:0 56px;display:flex;flex-direction:column;gap:12px}
+.date{font-family:var(--label);font-size:.82rem;letter-spacing:.06em;color:#E3DCEF}
+.hero h1{font-size:clamp(3.6rem,15vw,8.5rem);letter-spacing:-.01em}
+.lede{max-width:34ch;font-size:1.12rem;color:#E9E3F2}
+
+/* ---------- Rua ---------- */
+.street{padding-block:72px 96px;background:linear-gradient(180deg,var(--night),#141022)}
+.street h2,.panel h3,.vitrine-head h2{font-size:clamp(2rem,6vw,2.8rem);margin-bottom:14px}
+.street p{color:var(--muted);max-width:56ch}
+
+/* ---------- Caverna ---------- */
+.cave{position:relative;background:radial-gradient(120% 60% at 50% 0%,#1d1530 0%,var(--cave) 55%,#0b0912 100%)}
+.cave-fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0;transition:opacity .9s ease}
+.cave-fx.on{opacity:1}
+.cave>section,.sea>section,.finale,.street,.hero{position:relative;z-index:2}
+.cave-intro{padding-block:120px 72px;text-align:left}
+.stop-label{font-family:var(--label);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amethyst-hi);margin-bottom:10px}
+h2.big{font-size:clamp(2.8rem,10vw,5.4rem);margin-bottom:16px}
+.cave-intro p:last-child{color:var(--muted);max-width:48ch}
+
+.block{padding-block:40px}
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:32px;align-items:center}
+.split.reverse{grid-template-columns:minmax(0,6fr) minmax(0,5fr)}
+.split.reverse .photo{order:2}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:28px;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);min-width:0}
+.panel p{color:#DCD3E8}
+.panel p+p{margin-top:12px}
+.panel.wide{max-width:860px;margin:0 auto}
+.photo{margin:0;border-radius:18px;overflow:hidden;background:#1a1426;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.photo svg{width:100%;height:100%;display:block}
+.photo.tall{aspect-ratio:300/390;max-width:100%}
+.photo.landscape{aspect-ratio:2/1;margin:6px 0 22px}
+.photo.mini{margin-top:18px;aspect-ratio:4/3;max-width:320px}
+
+.steps{list-style:none;counter-reset:s;margin:18px 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:start;color:#DCD3E8}
+.steps li::before{content:counter(s);font-family:var(--label);font-size:.85rem;display:grid;place-items:center;
+  width:30px;height:30px;border-radius:50%;border:1px solid var(--amethyst);color:var(--amethyst-hi)}
+.steps b{color:var(--ink)}
+.aside{font-style:italic;color:var(--muted)!important}
+
+.defs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px;margin:0 0 22px}
+.defs div{border-top:1px solid var(--line);padding-top:10px}
+.defs dt{font-family:var(--label);font-size:.82rem;color:var(--amethyst-hi);margin-bottom:4px}
+.defs dd{margin:0;color:#DCD3E8;font-size:.97rem}
+.callout{border-left:2px solid var(--amethyst);padding-left:14px}
+
+/* ---------- Vitrine 3D ---------- */
+.vitrine{padding-block:72px}
+.vitrine-head{max-width:620px;margin-bottom:26px}
+.vitrine-head p{color:var(--muted)}
+.gem-stage{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:28px;align-items:center}
+.gem-view{position:relative;aspect-ratio:1/1;max-width:100%;border-radius:28px;overflow:hidden;
+  background:radial-gradient(70% 70% at 50% 45%,#1c1430 0%,#0a0810 75%);border:1px solid var(--line)}
+.gem-glow{position:absolute;inset:12%;border-radius:50%;background:radial-gradient(circle,var(--glow,#9b6bd6) 0%,transparent 65%);
+  opacity:.38;filter:blur(30px);transition:background .6s ease}
+.gem-canvas{position:relative;width:100%;height:100%;display:block;touch-action:none;cursor:grab;outline:none}
+.gem-canvas:active{cursor:grabbing}
+.gem-canvas:focus-visible{box-shadow:inset 0 0 0 2px var(--amethyst-hi);border-radius:28px}
+.drag-hint{position:absolute;left:0;right:0;bottom:16px;text-align:center;font-family:var(--label);font-size:.78rem;
+  color:var(--muted);pointer-events:none;transition:opacity .5s}
+.drag-hint.gone{opacity:0}
+.gem-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+.specimen{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:26px;min-width:0}
+.spec-sub{font-family:var(--label);font-size:.8rem;color:var(--amethyst-hi);margin-bottom:4px}
+.specimen h3{font-size:clamp(2.4rem,7vw,3.4rem);margin-bottom:14px}
+.spec-meta{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0 0 16px;font-family:var(--label);font-size:.82rem}
+.spec-meta dt{color:var(--muted)}
+.spec-meta dd{margin:0;color:var(--ink)}
+.specimen #specText{color:#DCD3E8}
+.spec-curio{margin-top:12px!important;color:var(--ink);font-style:italic}
+.spec-photo{margin:18px 0 0;display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center}
+.spec-photo img{width:72px;height:72px;object-fit:cover;border-radius:12px}
+.spec-photo figcaption{font-family:var(--label);font-size:.76rem;color:var(--muted)}
+
+.gem-picker{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.gem-picker button{font:inherit;font-size:.95rem;font-weight:500;color:var(--ink);background:rgba(255,255,255,.04);
+  border:1px solid var(--line);border-radius:999px;padding:9px 16px 9px 10px;display:inline-flex;align-items:center;gap:9px;cursor:pointer;
+  transition:background .2s,border-color .2s}
+.gem-picker button:hover{background:rgba(255,255,255,.08)}
+.gem-picker button[aria-pressed="true"]{border-color:var(--amethyst-hi);background:rgba(155,107,214,.18)}
+.gem-picker button:focus-visible,.btn:focus-visible{outline:2px solid var(--amethyst-hi);outline-offset:3px}
+.sw{width:18px;height:18px;border-radius:5px;transform:rotate(45deg);background:var(--sw)}
+.sw.opal{background:conic-gradient(#7ee0d2,#9ab6ff,#e2a0ff,#ffd38a,#7ee0d2)}
+
+/* ---------- Mar ---------- */
+.sea{position:relative;background:linear-gradient(180deg,#0b0912 0%,#071a26 18%,var(--sea) 60%,#04131c 100%);overflow:hidden}
+.sea-panel{background:rgba(6,32,44,.72);border-color:rgba(126,224,210,.22)}
+.sea-stop{padding-block:110px 130px;position:relative}
+.sea-stop .stop-label{color:#7ee0d2}
+.sea-stop p:last-child{color:#B9D4DA}
+.bubbles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.bubbles span{position:absolute;bottom:-20px;border-radius:50%;border:1px solid rgba(126,224,210,.45);
+  animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-120vh)}}
+
+/* ---------- Chegada ---------- */
+.finale{padding-block:90px 70px;background:radial-gradient(80% 60% at 50% 20%,#2a1b45 0%,var(--night) 70%);text-align:center}
+.finale .wrap{display:flex;flex-direction:column;align-items:center;gap:16px}
+.finale-gem{width:84px;height:auto;filter:drop-shadow(0 0 26px rgba(201,162,255,.65))}
+.message{font-family:var(--display);font-size:clamp(1.6rem,5vw,2.3rem);line-height:1.2;max-width:24ch}
+.sign{font-family:var(--label);color:var(--muted)}
+.finale-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:10px}
+.btn{font:inherit;font-weight:700;font-size:.95rem;color:#14081f;background:var(--amethyst-hi);border:0;border-radius:999px;
+  padding:12px 22px;cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+
+/* ---------- Trilha da bike ---------- */
+.route{position:fixed;left:0;right:0;bottom:0;z-index:20;
+  padding:10px var(--gutter-r) calc(10px + env(safe-area-inset-bottom,0px)) var(--gutter-l);
+  background:rgba(14,12,20,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.route-inner{max-width:720px;margin:0 auto;padding:0 14px}
+.route-track{position:relative;height:28px}
+.route-track::before{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:rgba(255,255,255,.14);border-radius:2px}
+.route-fill{position:absolute;left:0;top:50%;height:2px;margin-top:-1px;width:0;background:var(--amethyst-hi);border-radius:2px}
+.route-dot{position:absolute;top:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:#3a3150;border:1px solid var(--line)}
+.route-dot.on{background:var(--amethyst-hi)}
+.bike{position:absolute;top:-2px;width:34px;height:22px;margin-left:-17px;left:0;fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.route-labels{list-style:none;margin:4px 0 0;padding:0;display:flex;justify-content:space-between;font-family:var(--label);font-size:.7rem;color:var(--muted)}
+.route-labels li:nth-child(2){transform:translateX(-30%)}
+.route-labels li:nth-child(3){transform:translateX(30%)}
+
+/* ---------- Telas estreitas ---------- */
+@media (max-width:760px){
+  body{font-size:16px}
+  .split,.split.reverse,.gem-stage{grid-template-columns:minmax(0,1fr)}
+  .split.reverse .photo{order:0}
+  .photo.tall{aspect-ratio:4/5}
+  .panel,.specimen{padding:22px}
+  .defs{grid-template-columns:minmax(0,1fr)}
+  .route-labels{font-size:.62rem}
+  .route-labels li:nth-child(2),.route-labels li:nth-child(3){transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .bubbles span{animation:none;display:none}
+  .cave-fx{transition:none}
+}
+
+.split.reverse .photo{aspect-ratio:1/1}
+.gem-fallback{position:absolute;inset:18%;width:64%;height:64%}
+.note-end{max-width:44ch;color:var(--muted)}
