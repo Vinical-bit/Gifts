@@ -3,7 +3,7 @@
 
   // ===== Link do Mapa das Gemas =====
   // Quando o mapa estiver no ar, cole o endereço aqui e o botão aparece sozinho.
-  var GEMAS_URL = '';
+  var GEMAS_URL = 'https://vinical-bit.github.io/mapa-das-gemas/';
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

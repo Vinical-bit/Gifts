@@ -1,0 +1,95 @@
+/* Layout idea: one sticky full-screen stage per scene. Scroll position drives the drawing, and a paper-colored caption carries each line of the letter. */
+:root{
+  --ink:#150f1c;      /* night plum, page background */
+  --paper:#f4f1ec;    /* letter paper */
+  --wine:#7a1f3d;     /* signature wine */
+  --rose:#e7b5c6;     /* white-rose blush */
+  --ame:#8e6cbf;      /* amethyst */
+  --leaf:#4fae7c;     /* her green */
+  --text:#2b1a24;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --script:"Dancing Script","Segoe Script","Brush Script MT",cursive;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink);-webkit-text-size-adjust:100%}
+body{background:var(--ink);color:var(--paper);font-family:var(--serif);font-weight:500;line-height:1.5}
+.script{font-family:var(--script)}
+
+/* progress thread */
+.hud{position:fixed;inset:0 0 auto 0;z-index:20;padding:10px 18px 0;pointer-events:none}
+.hud-line{height:2px;background:rgba(255,255,255,.14);border-radius:2px;overflow:hidden}
+.hud-line i{display:block;height:100%;width:0;background:var(--rose)}
+.beads{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:9px}
+.beads b{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2);transition:background .4s,box-shadow .4s}
+.beads b.on{background:var(--rose);box-shadow:0 0 9px var(--rose)}
+.beads i{width:10px}
+
+/* intro */
+.intro{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12vh 24px 8vh;background:radial-gradient(120% 80% at 50% 18%,#2d1838 0,var(--ink) 62%)}
+.intro svg{width:min(58vw,230px);height:auto;filter:drop-shadow(0 8px 26px rgba(231,181,198,.28));animation:float 6s ease-in-out infinite}
+.intro h1{font-weight:600;font-size:clamp(2.5rem,12vw,4.2rem);line-height:1.05;margin-top:.5rem;color:var(--rose)}
+.intro h1 span{display:block;font-size:.5em;color:var(--paper);opacity:.85;font-family:var(--serif);font-style:italic;font-weight:500}
+.hint{margin-top:2.4rem;font-size:1rem;letter-spacing:.16em;text-transform:uppercase;opacity:.7;animation:nudge 2.2s ease-in-out infinite}
+
+/* scenes */
+.scene{position:relative;height:calc(var(--len) * 1vh);height:calc(var(--len) * 1svh)}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--ink)}
+.art{position:absolute;inset:0;width:100%;height:100%;display:block}
+.scene:not(.live) *{animation-play-state:paused}
+
+.cap{position:absolute;left:50%;bottom:4vh;width:min(92vw,36rem);padding:1.05rem 1.25rem;border-left:3px solid var(--rose);border-radius:4px 16px 16px 4px;background:rgba(244,241,236,.95);color:var(--text);font-size:clamp(1.2rem,4.9vw,1.5rem);line-height:1.42;font-weight:600;text-wrap:balance;opacity:0;transform:translate(-50%,14px);pointer-events:none;box-shadow:0 14px 36px rgba(0,0,0,.38)}
+
+/* scene 1: eye to sea */
+#s1 .stage{background:#0e0a12}
+.eye{position:absolute;left:50%;top:41%;width:min(92vw,520px);height:auto;transform:translate(-50%,-50%) scale(3.2);will-change:transform,opacity}
+#beach{opacity:0}
+.sway{transform-origin:0 0;animation:sway 5s ease-in-out infinite alternate}
+.wave-a{animation:drift 9s linear infinite}
+.wave-b{animation:drift 13s linear infinite reverse}
+.wave-c{animation:drift 7s linear infinite}
+.iris-look{transform-box:fill-box;transform-origin:center;animation:look 7s ease-in-out infinite alternate}
+
+/* scene 2: world gets color */
+#world{filter:grayscale(1) brightness(.85)}
+.gem{position:absolute;left:50%;top:27%;width:min(40vw,170px);height:auto;transform:translate(-50%,-50%) scale(.6);opacity:0;filter:drop-shadow(0 0 18px rgba(255,255,255,.55))}
+.twinkle{animation:twinkle 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+
+/* scene 4: voice */
+#s4 .stage{background:radial-gradient(100% 70% at 50% 38%,#3b2457 0,#1b1128 55%,var(--ink) 100%)}
+.rings{position:absolute;left:50%;top:38%;width:0;height:0}
+.rings i{position:absolute;left:-90px;top:-90px;width:180px;height:180px;border-radius:50%;border:2px solid var(--ame);opacity:0;animation:ripple 4s ease-out infinite}
+.rings i:nth-child(2){animation-delay:1.3s}
+.rings i:nth-child(3){animation-delay:2.6s}
+.wave{position:absolute;left:50%;top:38%;width:min(86vw,460px);height:34vh;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:space-between;gap:3px}
+.wave i{display:block;flex:1;height:10%;min-width:3px;border-radius:99px;background:linear-gradient(var(--rose),var(--ame))}
+.notes span{position:absolute;bottom:-40px;color:var(--rose);opacity:0;animation:rise linear infinite}
+.tap{position:absolute;left:50%;top:66%;transform:translateX(-50%);font:inherit;font-size:1.1rem;font-weight:600;color:var(--rose);background:rgba(21,15,28,.55);border:1px solid var(--rose);border-radius:999px;padding:.6rem 1.3rem;cursor:pointer;text-decoration:none;white-space:nowrap}
+.tap:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
+
+/* scene 5: crochet */
+#s5 .stage{background:radial-gradient(90% 60% at 50% 30%,#3a2145 0,var(--ink) 72%)}
+#blanket{position:absolute;left:50%;top:40%;width:min(88vw,430px);height:auto;transform:translate(-50%,-50%)}
+.final{position:absolute;left:0;right:0;bottom:7vh;text-align:center;padding:0 20px;pointer-events:none}
+.final .big{font-size:clamp(2.6rem,13vw,4.6rem);line-height:1.15;color:var(--rose);text-shadow:0 0 22px rgba(231,181,198,.55)}
+.final .big span{display:inline-block;opacity:0;white-space:pre}
+.final .small{margin-top:.8rem;font-size:1.25rem;opacity:0;font-style:italic}
+.final .sign{font-size:clamp(2.2rem,10vw,3.2rem);color:var(--paper);opacity:0}
+
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@keyframes sway{from{transform:rotate(-1.6deg)}to{transform:rotate(1.8deg)}}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-100px)}}
+@keyframes look{from{transform:translateX(-7px)}to{transform:translateX(7px)}}
+@keyframes twinkle{0%,100%{opacity:.35;transform:scale(.7)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes ripple{0%{transform:scale(.4);opacity:.55}100%{transform:scale(2.3);opacity:0}}
+@keyframes rise{0%{transform:translateY(0) rotate(-8deg);opacity:0}15%{opacity:.8}85%{opacity:.5}100%{transform:translateY(-110vh) rotate(10deg);opacity:0}}
+
+/* no script, or reduced motion: everything is laid out and readable */
+html:not(.js) .scene,html.static .scene{height:auto}
+html:not(.js) .stage,html.static .stage{position:relative;height:auto;min-height:72vh;display:flex;flex-direction:column;justify-content:flex-end;gap:.8rem;padding:1rem 0 1.4rem}
+html:not(.js) .cap,html.static .cap{position:relative;left:auto;bottom:auto;transform:none;opacity:1;margin:0 auto}
+html.static .hud{display:none}
+html.static .final .big span,html.static .final .small,html.static .final .sign{opacity:1}
+html.static .final{position:relative;bottom:auto;margin-top:1rem}
+html.static *{animation:none!important}
