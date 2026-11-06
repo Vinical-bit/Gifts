@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contrato · Vinical &amp; Lustosa</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤝</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Mono:wght@400;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --mesa:#14161b; --papel:#f6f1e6; --papel2:#eee6d4; --tinta:#1b2433; --tinta2:#4a5568;
+    --linha:#d8ccb2; --ouro:#b08a3e; --verde:#2f6b4f; --vermelho:#a3362b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--mesa);color:var(--tinta)}
+  body{font-family:'Fraunces',Georgia,serif;min-height:100vh;overflow-x:hidden;
+       background:radial-gradient(1200px 700px at 50% -10%,#232733 0%,var(--mesa) 60%)}
+
+  /* ---------- 1. Pasta fechada ---------- */
+  #capa{position:fixed;inset:0;display:grid;place-items:center;z-index:10;padding:16px;transition:opacity .8s,visibility .8s}
+  #capa.saiu{opacity:0;visibility:hidden}
+  .pasta{width:min(360px,88vw);aspect-ratio:3/4;position:relative;cursor:pointer;
+         background:linear-gradient(160deg,#c9a46a,#a98245);border-radius:6px 14px 14px 6px;
+         box-shadow:0 30px 60px #0009, inset 0 0 0 1px #0002;transition:transform .5s}
+  .pasta:hover{transform:translateY(-4px) rotate(-.6deg)}
+  .pasta::before{content:"";position:absolute;top:-14px;left:18px;width:42%;height:22px;background:#c19a5e;border-radius:6px 6px 0 0}
+  .etiqueta{position:absolute;left:10%;right:10%;top:22%;background:var(--papel);padding:18px 16px;border-radius:3px;
+            box-shadow:0 2px 0 #0001;text-align:center}
+  .etiqueta small{font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.18em;color:var(--tinta2)}
+  .etiqueta h1{font-size:22px;font-weight:800;margin:8px 0 4px;letter-spacing:-.01em}
+  .etiqueta p{font-size:14px;font-style:italic;color:var(--tinta2)}
+  .carimbo-conf{position:absolute;bottom:20%;left:50%;transform:translateX(-50%) rotate(-8deg);
+       font:600 15px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:var(--vermelho);
+       border:2.5px solid var(--vermelho);padding:6px 12px;border-radius:4px;opacity:.85}
+  .toque{position:absolute;bottom:-44px;left:0;right:0;text-align:center;font:400 12px 'IBM Plex Mono',monospace;
+         color:#8b93a3;letter-spacing:.12em;animation:pisca 2s infinite}
+  @keyframes pisca{50%{opacity:.35}}
+
+  /* ---------- 2. Contrato ---------- */
+  main{max-width:720px;margin:0 auto;padding:40px 16px 120px;opacity:0;transition:opacity 1s .3s}
+  main.aberto{opacity:1}
+  .folha{background:var(--papel);border-radius:4px;padding:clamp(22px,6vw,56px);position:relative;
+         box-shadow:0 40px 80px #0008;overflow:hidden;
+         background-image:linear-gradient(transparent 0 0),radial-gradient(circle at 20% 10%,#fffaf0 0,transparent 60%)}
+  .topo{display:flex;justify-content:space-between;gap:12px;font:400 11px 'IBM Plex Mono',monospace;color:var(--tinta2);
+        letter-spacing:.06em;border-bottom:1px solid var(--linha);padding-bottom:12px;flex-wrap:wrap}
+  .titulo{text-align:center;margin:34px 0 8px}
+  .titulo small{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.22em;color:var(--ouro)}
+  .titulo h2{font-size:clamp(24px,6vw,36px);font-weight:800;line-height:1.1;margin-top:10px;letter-spacing:-.015em}
+  .titulo p{font-style:italic;color:var(--tinta2);margin-top:10px}
+  .selo{width:84px;height:84px;margin:22px auto 6px;display:block}
+
+  p,li{font-size:16.5px;line-height:1.7}
+  .bloco{margin-top:34px;opacity:0;transform:translateY(18px);transition:opacity .9s,transform .9s}
+  .bloco.visto{opacity:1;transform:none}
+  .rotulo{font:600 11.5px 'IBM Plex Mono',monospace;letter-spacing:.16em;color:var(--ouro);display:block;margin-bottom:8px}
+  h3{font-size:20px;font-weight:600;margin-bottom:10px}
+  .partes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+  .parte{border:1px solid var(--linha);border-radius:4px;padding:14px;background:var(--papel2)}
+  .parte b{display:block;font-size:17px}
+  .parte span{font:400 12px 'IBM Plex Mono',monospace;color:var(--tinta2)}
+  .considerando{padding-left:14px;border-left:2px solid var(--linha);margin-top:10px}
+  .considerando b{font-weight:600}
+  ol.sub{list-style:none;counter-reset:s;margin-top:6px}
+  ol.sub li{counter-increment:s;padding-left:38px;position:relative;margin-top:8px}
+  ol.sub li::before{content:counter(s,lower-alpha) ")";position:absolute;left:8px;font:600 14px 'IBM Plex Mono',monospace;color:var(--ouro);top:3px}
+
+  /* relatório da operação patinete */
+  .relatorio{margin-top:14px;border:1px solid var(--linha);border-radius:4px;overflow:hidden;font:400 13px 'IBM Plex Mono',monospace}
+  .relatorio div{display:grid;grid-template-columns:42% 58%;border-top:1px solid var(--linha)}
+  .relatorio div:first-child{border-top:0;background:var(--tinta);color:var(--papel);font-weight:600;letter-spacing:.08em}
+  .relatorio span{padding:9px 12px}
+  .relatorio span:first-child{color:var(--tinta2);border-right:1px solid var(--linha)}
+  .relatorio div:first-child span:first-child{color:var(--papel);border-color:#fff2}
+  .ok{color:var(--verde);font-weight:600}
+
+  /* gráfico */
+  .grafico{margin-top:16px;background:var(--papel2);border:1px solid var(--linha);border-radius:4px;padding:14px 12px 8px}
+  .grafico svg{width:100%;height:auto;display:block}
+  .grafico .leg{display:flex;gap:16px;flex-wrap:wrap;font:400 11.5px 'IBM Plex Mono',monospace;color:var(--tinta2);margin-top:6px}
+  .grafico .leg i{display:inline-block;width:18px;height:2px;vertical-align:middle;margin-right:6px}
+  #curva{stroke-dasharray:1000;stroke-dashoffset:1000}
+  .visto #curva{animation:desenha 3.2s ease-in-out .3s forwards}
+  @keyframes desenha{to{stroke-dashoffset:0}}
+  .visto .nota-g{animation:surge .6s forwards}
+  .nota-g{opacity:0}
+  @keyframes surge{to{opacity:1}}
+
+  .pipeline{display:grid;gap:8px;margin-top:12px}
+  .item{display:flex;align-items:center;gap:12px;border:1px solid var(--linha);border-radius:4px;padding:10px 12px;background:var(--papel2)}
+  .item .st{font:600 10.5px 'IBM Plex Mono',monospace;letter-spacing:.1em;padding:3px 7px;border-radius:3px;white-space:nowrap}
+  .st.and{background:#e8d8b0;color:#6b521c}
+  .st.fila{background:#dfe4ec;color:#38475e}
+  .item p{font-size:15px;line-height:1.45}
+
+  .mensagem{background:var(--tinta);color:var(--papel);border-radius:4px;padding:clamp(20px,5vw,32px);margin-top:14px}
+  .mensagem p{font-size:17px;line-height:1.75}
+  .mensagem p+p{margin-top:14px}
+  .mensagem .vers{font-style:italic;color:#d9c493;border-left:2px solid var(--ouro);padding-left:14px}
+
+  /* assinaturas */
+  .assinaturas{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+  .campo{text-align:center}
+  .linha-ass{height:110px;border-bottom:1.5px solid var(--tinta);position:relative;display:flex;align-items:flex-end;justify-content:center}
+  .ass-vini{font:600 clamp(30px,8vw,40px) 'Caveat',cursive;color:#1d3b7a;transform:rotate(-4deg);margin-bottom:6px}
+  canvas#ass{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair;
+             background:repeating-linear-gradient(135deg,transparent 0 10px,#b08a3e10 10px 11px);border-radius:4px 4px 0 0}
+  .dica{position:absolute;top:42%;left:0;right:0;text-align:center;font:400 12px 'IBM Plex Mono',monospace;color:var(--ouro);pointer-events:none;animation:pisca 2s infinite}
+  .campo b{display:block;margin-top:8px;font-size:15px}
+  .campo span{font:400 11px 'IBM Plex Mono',monospace;color:var(--tinta2)}
+  .acoes{display:flex;gap:10px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+  button{font:600 13px 'IBM Plex Mono',monospace;letter-spacing:.08em;border:0;border-radius:4px;padding:13px 20px;cursor:pointer}
+  #limpar{background:transparent;color:var(--tinta2);border:1px solid var(--linha)}
+  #assinar{background:var(--tinta);color:var(--papel)}
+  #assinar:disabled{opacity:.35;cursor:not-allowed}
+  .local{text-align:center;font-style:italic;color:var(--tinta2);margin-top:30px}
+
+  .carimbo{position:absolute;right:6%;bottom:180px;font:600 clamp(18px,5vw,26px) 'IBM Plex Mono',monospace;letter-spacing:.14em;
+           color:var(--verde);border:3px solid var(--verde);padding:10px 16px;border-radius:6px;text-align:center;line-height:1.25;
+           transform:rotate(-12deg) scale(2.4);opacity:0;pointer-events:none;mix-blend-mode:multiply}
+  .carimbo small{display:block;font-size:.45em;letter-spacing:.2em}
+  .carimbo.bate{animation:bate .45s cubic-bezier(.2,1.6,.4,1) forwards}
+  @keyframes bate{to{transform:rotate(-12deg) scale(1);opacity:.88}}
+
+  /* final */
+  #final{max-width:720px;margin:28px auto 0;display:none}
+  #final.on{display:block;animation:surge 1s forwards}
+  .terminal{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:18px;font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#c9d1d9;overflow-x:auto}
+  .terminal .p{color:#7ee787}.terminal .c{color:#8b949e}.terminal .y{color:#e3b341}
+  .parabens{text-align:center;color:var(--papel);margin-top:34px}
+  .parabens h2{font-size:clamp(32px,9vw,54px);font-weight:800;letter-spacing:-.02em;line-height:1.05}
+  .parabens p{color:#aab2c0;font-style:italic;margin-top:12px}
+  #confete{position:fixed;inset:0;pointer-events:none;z-index:20}
+
+  @media (max-width:520px){
+    .partes,.assinaturas{grid-template-columns:1fr}
+    .relatorio div{grid-template-columns:1fr}
+    .relatorio span:first-child{border-right:0;padding-bottom:0}
+    .carimbo{bottom:140px}
+    .item{flex-direction:column;align-items:flex-start;gap:6px}
+  }
+</style>
+</head>
+<body>
+
+<!-- 1. Pasta fechada -->
+<section id="capa">
+  <div class="pasta" id="pasta">
+    <div class="etiqueta">
+      <small>DOC. Nº 2026/1106</small>
+      <h1>Vinical &amp; Lustosa</h1>
+      <p>Instrumento de renovação societária</p>
+    </div>
+    <div class="carimbo-conf">CONFIDENCIAL</div>
+    <div class="toque">toque para abrir a pasta</div>
+  </div>
+</section>
+
+<!-- 2. Contrato -->
+<main id="contrato">
+  <article class="folha" id="folha">
+    <div class="topo">
+      <span>VINICAL &amp; LUSTOSA S/A — sociedade fundada na amizade</span>
+      <span>Data: 06/11/2026</span>
+    </div>
+
+    <div class="titulo">
+      <svg class="selo" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#b08a3e" stroke-width="2"/>
+        <circle cx="50" cy="50" r="38" fill="none" stroke="#b08a3e" stroke-width="1" stroke-dasharray="2 3"/>
+        <text x="50" y="47" text-anchor="middle" font-family="Fraunces" font-weight="800" font-size="22" fill="#1b2433">V&amp;L</text>
+        <text x="50" y="63" text-anchor="middle" font-family="IBM Plex Mono" font-size="7" letter-spacing="1.5" fill="#b08a3e">DESDE SEMPRE</text>
+      </svg>
+      <small>CONTRATO SOCIAL · ADITIVO ANUAL</small>
+      <h2>Instrumento Particular de Renovação de Sociedade</h2>
+      <p>Mais um ano de operação, celebrado na data de aniversário do sócio Gabriel Lustosa.</p>
+    </div>
+
+    <section class="bloco">
+      <span class="rotulo">DAS PARTES</span>
+      <div class="partes">
+        <div class="parte"><b>Vinical</b><span>Sócio-fundador · doravante "Sócio A"</span></div>
+        <div class="parte"><b>Gabriel Lustosa</b><span>Sócio-fundador e aniversariante · doravante "Sócio B"</span></div>
+      </div>
+      <p style="margin-top:12px">Irmãos nascidos de barrigas diferentes, ambos programadores, ambos com ideias demais e paciência de menos, resolvem firmar o presente aditivo nos termos abaixo.</p>
+    </section>
+
+    <section class="bloco">
+      <span class="rotulo">PREÂMBULO</span>
+      <p class="considerando"><b>CONSIDERANDO</b> que os sócios conversam sobre negócios desde antes de ter um negócio;</p>
+      <p class="considerando"><b>CONSIDERANDO</b> que toda vez que se juntam produzem, no mínimo, uma história e, no máximo, uma loucura;</p>
+      <p class="considerando"><b>CONSIDERANDO</b> que tudo o que os dois começam parece que vai dar errado e, no fim, dá certo;</p>
+      <p class="considerando"><b>CONSIDERANDO</b>, por fim, que hoje o Sócio B completa mais um ano de vida;</p>
+      <p style="margin-top:12px">Resolvem as partes, de comum acordo, <b>renovar a sociedade</b> pelas cláusulas a seguir.</p>
+    </section>
+
+    <section class="bloco">
+      <span class="rotulo">CLÁUSULA 1ª</span>
+      <h3>Do objeto</h3>
+      <p>O presente instrumento renova a sociedade de amizade entre as partes por mais um exercício (06/11/2026 a 06/11/2027), com <b>renovação automática</b> a cada 6 de novembro, por prazo indeterminado.</p>
+    </section>
+
+    <section class="bloco">
+      <span class="rotulo">CLÁUSULA 2ª</span>
+      <h3>Do capital social</h3>
+      <p>O capital social é composto de confiança, parceria e lealdade, dividido em <b>50% para cada sócio</b>. As cotas são intransferíveis e não podem ser vendidas, nem por um preço muito bom.</p>
+    </section>
+
+    <section class="bloco">
+      <span class="rotulo">CLÁUSULA 3ª</span>
+      <h3>Do histórico operacional</h3>
+      <p>Fica registrado em ata, como prova da capacidade de execução da sociedade, o seguinte caso:</p>
+      <div class="relatorio">
+        <div><span>RELATÓRIO</span><span>OPERAÇÃO PATINETE</span></div>
+        <div><span>Rota planejada</span><span>Parque Villa-Lobos → Ibirapuera</span></div>
+        <div><span>Estratégia</span><span>Atalho sugerido por desconhecidos</span></div>
+        <div><span>Frota</span><span>1 patinete para 2 sócios</span></div>
+        <div><span>Imprevistos</span><span>Rota perdida · portão no caminho</span></div>
+        <div><span>Solução</span><span>Pular o portão</span></div>
+        <div><span>Resultado</span><span class="ok">Chegamos. E virou história. ✔</span></div>
+      </div>
+      <p style="margin-top:12px">As partes reconhecem que o caso acima não é exceção, mas <b>padrão da empresa</b>.</p>
+    </section>
+
+    <section class="bloco">
+      <span class="rotulo">CLÁUSULA 4ª</span>
+      <h3>Do modelo de negócio</h3>
+      <p>A sociedade opera com uma metodologia própria, testada e comprovada:</p>
+      <ol class="sub">
+        <li>Os sócios começam alguma coisa;</li>
+        <li>Tudo parece que vai dar errado;</li>
+        <li>No final, dá certo.</li>
+      </ol>
+      <div class="grafico">
+        <svg viewBox="0 0 400 190" role="img" aria-label="Gráfico: a curva cai no começo e sobe até o topo no final">
+          <line x1="30" y1="160" x2="390" y2="160" stroke="#bfb196" stroke-width="1"/>
+          <line x1="30" y1="15" x2="30" y2="160" stroke="#bfb196" stroke-width="1"/>
+          <text x="35" y="178" font-family="IBM Plex Mono" font-size="12" fill="#4a5568">início</text>
+          <text x="355" y="178" font-family="IBM Plex Mono" font-size="12" fill="#4a5568">final</text>
+          <line x1="30" y1="95" x2="390" y2="150" stroke="#a3362b" stroke-width="1.5" stroke-dasharray="4 4" opacity=".7"/>
+          <path id="curva" d="M30 95 C 70 100, 95 150, 135 148 S 190 120, 215 135 S 260 150, 285 110 S 340 30, 388 22"
+                fill="none" stroke="#2f6b4f" stroke-width="3" stroke-linecap="round"/>
+          <g class="nota-g" style="animation-delay:1.3s">
+            <circle cx="135" cy="148" r="4" fill="#a3362b"/>
+            <text x="120" y="136" font-family="IBM Plex Mono" font-size="12" fill="#a3362b" text-anchor="end">"deu ruim"</text>
+          </g>
+          <g class="nota-g" style="animation-delay:3.3s">
+            <circle cx="388" cy="22" r="5" fill="#2f6b4f"/>
+            <text x="378" y="44" font-family="IBM Plex Mono" font-size="12" fill="#2f6b4f" text-anchor="end">deu certo ✔</text>
+          </g>
+        </svg>
+        <div class="leg"><span><i style="background:#a3362b"></i>previsão do mercado</span><span><i style="background:#2f6b4f"></i>resultado real da sociedade</span></div>
+      </div>
+      <p style="margin-top:12px"><b>Parágrafo único.</b> Quando algo parecer que vai dar errado, nenhum dos sócios entra em pânico: isso só quer dizer que a gente está na etapa (b).</p>
+    </section>
+
+    <section class="bloco">
+      <span class="rotulo">CLÁUSULA 5ª</span>
+      <h3>Do pipeline de projetos</h3>
+      <p>A sociedade declara ter muita coisa ainda para começar, entre elas:</p>
+      <div class="pipeline">
+        <div class="item"><span class="st and">EM ANDAMENTO</span><p>Entrar no INTELI, os dois juntos.</p></div>
+        <div class="item"><span class="st and">EM ANDAMENTO</span><p>Tirar do papel as ideias de negócio que a gente já vem lançando.</p></div>
+        <div class="item"><span class="st fila">NA FILA</span><p>Montar o nosso próprio negócio.</p></div>
+        <div class="item"><span class="st fila">SEMPRE NA FILA</span><p>A próxima história (ou loucura), em data a definir.</p></div>
+      </div>
+    </section>
+
+    <section class="bloco">
+      <span class="rotulo">CLÁUSULA 6ª</span>
+      <h3>Das obrigações dos sócios</h3>
+      <ol class="sub">
+        <li>Apoiar o outro sócio nos planos, inclusive nos que parecem loucos;</li>
+        <li>Topar a próxima aventura, mesmo sem saber onde ela vai dar;</li>
+        <li>Nunca deixar o outro pular o portão sozinho.</li>
+      </ol>
+    </section>
+
+    <section class="bloco">
+      <span class="rotulo">CLÁUSULA 7ª · DISPOSIÇÕES FINAIS</span>
+      <h3>Do novo ciclo</h3>
+      <div class="mensagem">
+        <p>Gabriel, feliz aniversário, meu irmão.</p>
+        <p>Que esse novo ciclo seja o melhor até agora. Que Deus te abençoe cada vez mais, abra as portas certas e te dê sabedoria pra tudo que vem pela frente, na faculdade, no INTELI, nos negócios e na vida.</p>
+        <p>Obrigado por ser o sócio que topa tudo comigo. Se tem uma coisa que a gente já provou, é que mesmo quando parece que vai dar errado, no final dá certo. E a gente ainda tem muita coisa pra começar.</p>
+        <p>Aproveita o seu dia. Que a gente continue construindo cada vez mais histórias juntos.</p>
+        <p class="vers">"Melhor é serem dois do que um, porque têm melhor paga do seu trabalho." — Eclesiastes 4:9</p>
+      </div>
+    </section>
+
+    <section class="bloco">
+      <span class="rotulo">DO FORO</span>
+      <p>Fica eleito o foro da amizade para resolver qualquer divergência entre os sócios, renunciando a qualquer outro, por mais privilegiado que seja. Toda pendência se resolve numa ligação.</p>
+      <p class="local">São Paulo, 6 de novembro de 2026.</p>
+
+      <div class="assinaturas">
+        <div class="campo">
+          <div class="linha-ass"><span class="ass-vini">Vinical</span></div>
+          <b>Vinical</b><span>Sócio A · assinado ✔</span>
+        </div>
+        <div class="campo">
+          <div class="linha-ass" id="caixaAss">
+            <canvas id="ass"></canvas>
+            <div class="dica" id="dica">assine aqui com o dedo ✍</div>
+          </div>
+          <b>Gabriel Lustosa</b><span>Sócio B · aniversariante</span>
+        </div>
+      </div>
+      <div class="acoes">
+        <button id="limpar">LIMPAR</button>
+        <button id="assinar" disabled>ASSINAR E RENOVAR</button>
+      </div>
+    </section>
+
+    <div class="carimbo" id="carimbo">RENOVADO<small>+1 ANO · 06/11/2026</small></div>
+  </article>
+
+  <!-- 3. Depois de assinar -->
+  <section id="final">
+    <div class="terminal" id="term"></div>
+    <div class="parabens">
+      <h2>Feliz aniversário,<br>sócio.</h2>
+      <p>Contrato renovado. Que venham as próximas histórias.</p>
+    </div>
+  </section>
+</main>
+
+<canvas id="confete"></canvas>
+
+<script>
+/* ---------- abrir a pasta ---------- */
+const capa = document.getElementById('capa');
+const contrato = document.getElementById('contrato');
+document.getElementById('pasta').addEventListener('click', () => {
+  capa.classList.add('saiu');
+  contrato.classList.add('aberto');
+  window.scrollTo(0, 0);
+});
+
+/* ---------- cláusulas aparecem conforme rola ---------- */
+const obs = new IntersectionObserver(entradas => {
+  entradas.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visto'); obs.unobserve(e.target); } });
+}, { threshold: 0.2 });
+document.querySelectorAll('.bloco').forEach(b => obs.observe(b));
+
+/* ---------- assinatura com o dedo ---------- */
+const tela = document.getElementById('ass');
+const ctx = tela.getContext('2d');
+const btnAssinar = document.getElementById('assinar');
+let desenhando = false, ultimo = null, tracado = 0;
+
+function ajustarTela() {
+  const r = tela.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  tela.width = r.width * dpr; tela.height = r.height * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.lineCap = ctx.lineJoin = 'round';
+  ctx.strokeStyle = '#1d3b7a';
+}
+function ponto(e) {
+  const r = tela.getBoundingClientRect();
+  return { x: e.clientX - r.left, y: e.clientY - r.top, t: performance.now() };
+}
+tela.addEventListener('pointerdown', e => {
+  if (btnAssinar.dataset.feito) return;
+  desenhando = true; ultimo = ponto(e);
+  tela.setPointerCapture(e.pointerId);
+  document.getElementById('dica').style.display = 'none';
+});
+tela.addEventListener('pointermove', e => {
+  if (!desenhando) return;
+  const p = ponto(e);
+  const d = Math.hypot(p.x - ultimo.x, p.y - ultimo.y);
+  const vel = d / Math.max(1, p.t - ultimo.t);
+  ctx.lineWidth = Math.max(1.2, 3.2 - vel * 1.2);   // rápido = traço fino, como caneta
+  ctx.beginPath(); ctx.moveTo(ultimo.x, ultimo.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+  tracado += d; ultimo = p;
+  if (tracado > 120) btnAssinar.disabled = false;
+});
+['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => tela.addEventListener(ev, () => desenhando = false));
+document.getElementById('limpar').addEventListener('click', () => {
+  if (btnAssinar.dataset.feito) return;
+  ctx.clearRect(0, 0, tela.width, tela.height);
+  tracado = 0; btnAssinar.disabled = true;
+  document.getElementById('dica').style.display = '';
+});
+window.addEventListener('resize', () => { if (!tracado) ajustarTela(); });
+ajustarTela();
+
+/* ---------- assinar: carimbo, terminal e confete ---------- */
+btnAssinar.addEventListener('click', () => {
+  btnAssinar.dataset.feito = '1';
+  btnAssinar.disabled = true;
+  btnAssinar.textContent = 'ASSINADO ✔';
+  document.getElementById('limpar').style.display = 'none';
+  document.getElementById('carimbo').classList.add('bate');
+  if (navigator.vibrate) navigator.vibrate(60);
+  setTimeout(() => {
+    const final = document.getElementById('final');
+    final.classList.add('on');
+    final.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    digitarTerminal();
+    confete();
+  }, 900);
+});
+
+function digitarTerminal() {
+  const linhas = [
+    ['p', '$ ', 'git commit -m "renova sociedade V&L por +1 ano"'],
+    ['c', '', '[main 06112026] renova sociedade V&L por +1 ano'],
+    ['c', '', ' 1 file changed, 365 insertions(+), 0 deletions(-)'],
+    ['p', '$ ', 'git tag gabriel-novo-ciclo'],
+    ['p', '$ ', 'npm run proximas-historias'],
+    ['y', '', '> carregando aventuras... ████████████ 100%'],
+    ['p', '', '✔ tudo pareceu que ia dar errado. deu certo.'],
+  ];
+  const term = document.getElementById('term');
+  term.innerHTML = '';
+  let i = 0;
+  (function proxima() {
+    if (i >= linhas.length) return;
+    const [cls, prefixo, texto] = linhas[i++];
+    const div = document.createElement('div');
+    div.innerHTML = `<span class="${cls}">${prefixo}</span><span></span>`;
+    term.appendChild(div);
+    const alvo = div.lastChild;
+    let k = 0;
+    (function letra() {
+      alvo.textContent = texto.slice(0, ++k);
+      if (k < texto.length) setTimeout(letra, prefixo ? 28 : 8);
+      else setTimeout(proxima, 260);
+    })();
+  })();
+}
+
+function confete() {
+  const c = document.getElementById('confete'), g = c.getContext('2d');
+  c.width = innerWidth; c.height = innerHeight;
+  const cores = ['#b08a3e', '#f6f1e6', '#2f6b4f', '#d9c493', '#1d3b7a'];
+  const pedacos = Array.from({ length: 160 }, () => ({
+    x: Math.random() * c.width, y: -20 - Math.random() * c.height * .6,
+    vx: (Math.random() - .5) * 2, vy: 2 + Math.random() * 3,
+    r: Math.random() * 6.28, vr: (Math.random() - .5) * .3,
+    w: 6 + Math.random() * 6, h: 3 + Math.random() * 4, cor: cores[Math.random() * cores.length | 0]
+  }));
+  const inicio = performance.now();
+  (function quadro(t) {
+    g.clearRect(0, 0, c.width, c.height);
+    pedacos.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      g.save(); g.translate(p.x, p.y); g.rotate(p.r);
+      g.fillStyle = p.cor; g.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); g.restore();
+    });
+    if (t - inicio < 6000) requestAnimationFrame(quadro); else g.clearRect(0, 0, c.width, c.height);
+  })(inicio);
+}
+</script>
+</body>
+</html>
